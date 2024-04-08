@@ -11,8 +11,9 @@ const DetailPage = () => {
 
 
     const loadForks = async () => {
-      const data = await getForksByGistId(gist.id);   
-      setForks(data);
+      const data = await getForksByGistId(gist.id); 
+      if(data)  
+        setForks(data);
     }
 
     useEffect(() => {       

@@ -22,14 +22,16 @@ const MainPage = () => {
     
     const data = await getGistsByUsername(username);   
     
-    setGists(data.gists);
-    //Handle pagination - If next url exist, update nextUrl state for Next button
-    if(data.nextUrl &&  data.nextUrl.length > 0){
-      setNextUrl(data.nextUrl);
-    }else{
-      setNextUrl();
+    if(data && data.gists){
+      setGists(data.gists);
+      //Handle pagination - If next url exist, update nextUrl state for Next button
+      if(data.nextUrl &&  data.nextUrl.length > 0){
+        setNextUrl(data.nextUrl);
+      }else{
+        setNextUrl();
+      }
+      setPrevUrl(); 
     }
-    setPrevUrl(); 
   }
 
   
@@ -38,17 +40,19 @@ const MainPage = () => {
     
     const data = await getGistsPageByUrl(url);   
     
-    setGists(data.gists);
-    if(data.nextUrl &&  data.nextUrl.length > 0){
-      setNextUrl(data.nextUrl);
-    }else{
-      setNextUrl();
+    if(data && data.gists){
+      setGists(data.gists);
+      if(data.nextUrl &&  data.nextUrl.length > 0){
+        setNextUrl(data.nextUrl);
+      }else{
+        setNextUrl();
+      }
+      if(data.prevUrl &&  data.prevUrl.length > 0){
+        setPrevUrl(data.prevUrl);
+      }else{
+        setPrevUrl();
+      }    
     }
-    if(data.prevUrl &&  data.prevUrl.length > 0){
-      setPrevUrl(data.prevUrl);
-    }else{
-      setPrevUrl();
-    }    
   }
 
 
