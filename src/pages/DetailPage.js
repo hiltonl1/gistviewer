@@ -9,14 +9,16 @@ const DetailPage = () => {
     const gist = location.state;
     const [forks, setForks] = useState([]);
 
+
+    const loadForks = async () => {
+      const data = await getForksByGistId(gist.id);   
+      setForks(data);
+    }
+
     useEffect(() => {       
       loadForks();
     }, []);
 
-  const loadForks = async () => {
-    const data = await getForksByGistId(gist.id);   
-    setForks(data);
-  }
 
   return (
     <>

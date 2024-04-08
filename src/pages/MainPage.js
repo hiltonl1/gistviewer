@@ -8,17 +8,22 @@ import Stack from '@mui/material/Stack';
 import {getGistsByUsername, getGistsPageByUrl} from '../services/GistServices'
 
 const MainPage = () => {
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState('');
   const [gists, setGists] = useState([]);
   const [prevUrl, setPrevUrl]  = useState();
   const [nextUrl, setNextUrl]  = useState();
   
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if(!username){
+      alert('Please enter a username');
+      return;
+    }
     
     const data = await getGistsByUsername(username);   
     
     setGists(data.gists);
+    //Handle pagination - If next url exist, update nextUrl state for Next button
     if(data.nextUrl &&  data.nextUrl.length > 0){
       setNextUrl(data.nextUrl);
     }else{
@@ -66,7 +71,7 @@ const MainPage = () => {
     if(nextUrl != null ){
       return (
         <Button 
-              variant="contained" 
+              variant='contained'
               onClick={() => handlePagination(nextUrl)}
             >Next Page</Button>
       )
@@ -78,7 +83,7 @@ const MainPage = () => {
     if(prevUrl != null ){
       return (
         <Button 
-              variant="contained" 
+              variant='contained' 
               onClick={() => handlePagination(prevUrl)}
             >Prev Page</Button>
       )
@@ -92,22 +97,22 @@ const MainPage = () => {
         <h1>Gist Viewer</h1>
       </header>      
       <div>
-        <Stack direction="row" spacing={2} justifyContent="center" alignItems="center">          
+        <Stack direction='row' spacing={2} justifyContent='center' alignItems='center'>          
             <FormLabel>Username:</FormLabel>
             <TextField
-              type="text" 
+              type='text'
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />        
             <Button 
-              variant="contained" 
+              variant='contained' 
               onClick={(e) => handleSubmit(e)}
             >Submit</Button>
         </Stack>
         
         
         <GistList/>
-        <Stack direction="row" spacing={2} justifyContent="center" alignItems="center">          
+        <Stack direction='row' spacing={2} justifyContent='center' alignItems='center'>          
           <PrevButton/> 
           <NextButton/>        
         </Stack>

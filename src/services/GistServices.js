@@ -1,13 +1,16 @@
 import axios from 'axios';
 
-const API_BASE_URL = "https://api.github.com";
+const API_BASE_URL = 'https://api.github.com';
+const ACCESSTOKEN = process.env.REACT_APP_GITHUB_TOKEN;
 
 export const getGistsByUsername = async (username) => {
 
+    const headers = { 'Authorization': 'Bearer ' + ACCESSTOKEN };
     let url = API_BASE_URL + '/users/' + username  + '/gists';
     
-    return axios.get(url)
-    .then(res => {      
+    return axios.get(url, {headers})
+    .then(res => {             
+
         let nextPattern = /(?<=<)([\S]*)(?=>; rel="Next")/i;      
         let linkHeader = res.headers.link;
         let nextUrl;
@@ -33,8 +36,9 @@ export const getGistsByUsername = async (username) => {
 
 export const getForksByGistId = async (gistId) => {
 
+    const headers = { 'Authorization': 'Bearer ' + ACCESSTOKEN };
     let url = API_BASE_URL + '/gists/' + gistId  + '/forks';
-    return axios.get(url)
+    return axios.get(url, {headers})
     .then(res => {        
         return res.data;
     })
@@ -44,8 +48,9 @@ export const getForksByGistId = async (gistId) => {
 };
    
 export const getGistsPageByUrl = async (url) => {
-    
-    return axios.get(url)
+
+    const headers = { 'Authorization': 'Bearer ' + ACCESSTOKEN };
+    return axios.get(url, {headers})
     .then(res => {
 
 

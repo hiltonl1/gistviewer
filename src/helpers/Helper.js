@@ -37,22 +37,22 @@ export const getLanguages = (gist) => {
 }
 
 export const getLanguageBadge = (language) => {
-    let color = "primary";
+    let color = 'primary';
     switch(language) {
         case 'Javascript':
-            color = "primary";
+            color = 'primary';
             break;
         case 'Python':
-            color = "success";
+            color = 'success';
             break;
         case 'Java':
-            color = "seconardy";            
+            color = 'seconardy';            
             break;
-        case "PHP":
-            color = "error";                            
+        case 'PHP':
+            color = 'error';                            
             break;
         default:
-            color =  "warning";
+            color =  'warning';
     }
     
     return (
@@ -82,7 +82,7 @@ export const getForksByOldest = (forks, numberOfForks) => {
 
 export const getFiles = (gist) => {
     let filenames = Object.keys(gist.files);   
-    console.log(gist.files);   
+     
     return (
         <List>
         { 
